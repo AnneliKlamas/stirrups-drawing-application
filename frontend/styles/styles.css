@@ -1,0 +1,358 @@
+#myCanvas{
+    width: 90%;
+    height: auto;
+    position: absolute;
+    right: 10px;
+    border:1px solid #000000;
+}
+
+
+#menu{
+    width: 100px;
+    background: #161f33;
+    min-height: 100vh; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+#menu button{
+    background-color: Transparent;
+    border: none;
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 16px;
+    display: block;
+    position: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+#menu button:hover {
+    background-color: #242E45;
+}
+
+#menu button:active {
+    background-color: #fff;
+    color: #161f33;
+}
+
+#menu #settings{
+    position: fixed;
+    bottom: 0;
+    left:0;
+    width: 100px;
+}
+
+#content{
+    margin-left: 100px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    box-shadow: 0 0 3px #161f33;
+}
+
+.slider:before {
+    position: absolute;
+    content: url(../icons/arrow_dw_corner.svg);
+    align-content: center;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    background: #161f33;
+}
+
+input:checked + .slider {
+    background-color: #161f33;
+}
+
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    background-color: white;
+    content: url(../icons/arrow_up_corner.svg);
+
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* The slider */
+.sliderStandard {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    box-shadow: 0 0 3px #161f33;
+}
+
+.sliderStandard:before {
+    position: absolute;
+    content: "";
+    align-content: center;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    background: #161f33;
+}
+
+input:checked + .sliderStandard {
+    background-color: #161f33;
+}
+
+
+input:checked + .sliderStandard:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+    background-color: white;
+}
+
+/* Rounded sliders */
+.sliderStandard.round{
+    border-radius: 34px;
+}
+
+.sliderStandard.round:before {
+    border-radius: 50%;
+}
+
+.dropdown-menu{
+    box-shadow: 0 0 3px #161f33;
+}
+
+#button{
+    background-color: #161f33;
+}
+
+.button {
+    background-color: #161f33;
+    border-radius: 5%;
+    color: #fff;
+    border: none;
+    padding: 12px 16px;
+    font-size: 16px;
+    display: block;
+}
+
+#loginButton {
+    background-color: #161f33;
+    border-radius: 5%;
+    color: #fff;
+    border: none;
+    padding: 12px 16px;
+    font-size: 16px;
+}
+
+.button:hover{
+    background-color: #242E45;
+}
+
+#standard-toggle{
+    display: flex;
+}
+
+#table{
+    width: 100%;
+}
+
+#parameters input[type="number"]{
+    width: 70px;
+}
+
+#parameters input[type="radio"]{
+    display: block;
+    background-color: #00fd3c;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* define height and width of scrollable area. Add 16px to width for scrollbar          */
+div.tableContainer {
+    clear: both;
+    border: 1px solid #963;
+    height: 285px;
+    overflow: auto;
+    width: 756px
+}
+
+/* Reset overflow value to hidden for all non-IE browsers. */
+html>body div.tableContainer {
+    overflow: hidden;
+    width: 756px
+}
+
+/* define width of table. IE browsers only                 */
+div.tableContainer table {
+    float: left;
+    width: 740px
+}
+
+/* define width of table. Add 16px to width for scrollbar.           */
+/* All other non-IE browsers.                                        */
+html>body div.tableContainer table {
+    width: 756px
+}
+
+/* set table header to a fixed position. WinIE 6.x only                                       */
+/* In WinIE 6.x, any element with a position property set to relative and is a child of       */
+/* an element that has an overflow property set, the relative value translates into fixed.    */
+/* Ex: parent element DIV with a class of tableContainer has an overflow property set to auto */
+thead.fixedHeader tr {
+    position: relative
+}
+
+/* set THEAD element to have block level attributes. All other non-IE browsers            */
+/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+html>body thead.fixedHeader tr {
+    display: block
+}
+
+
+/* define the table content to be scrollable                                              */
+/* set TBODY element to have block level attributes. All other non-IE browsers            */
+/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+/* induced side effect is that child TDs no longer accept width: auto                     */
+html>body tbody.scrollContent {
+    display: block;
+    height: 262px;
+    overflow: auto;
+    width: 100%
+}
+
+
+/* define width of TH elements: 1st, 2nd, and 3rd respectively.          */
+/* Add 16px to last TH for scrollbar padding. All other non-IE browsers. */
+/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+html>body thead.fixedHeader th {
+    width: 200px
+}
+
+html>body thead.fixedHeader th + th {
+    width: 240px
+}
+
+html>body thead.fixedHeader th + th + th {
+    width: 316px
+}
+
+/* define width of TD elements: 1st, 2nd, and 3rd respectively.          */
+/* All other non-IE browsers.                                            */
+/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+html>body tbody.scrollContent td {
+    width: 200px
+}
+
+html>body tbody.scrollContent td + td {
+    width: 240px
+}
+
+html>body tbody.scrollContent td + td + td {
+    width: 300px
+}
+
+
+.inline{
+    display: inline-block;
+}
+
+
+/* Customize the label (the container) */
+.circleLable {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.circleLable input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border-radius: 34px;
+    border-width: 2px;
+    background-color: #ffffff;
+    border-color: #161f33;
+    content: url(../icons/circle.svg);
+}
+
+/* On mouse-over, add a grey background color */
+.circleLable:hover input ~ .checkmark {
+    background-color: #9296b0;
+}
+
+/* When the checkbox is checked, add a blue background */
+.circleLable input:checked ~ .checkmark {
+    background-color: #161f33;
+    content: url(../icons/circleWhite.svg);
+
+}
+
+
+

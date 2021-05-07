@@ -1,0 +1,11 @@
+INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
+insert into users(ID, FULL_NAME, PASSWORD, USERNAME) VALUES ('1', 'ANNELI KLAMAS', '$2a$10$iQFOrZkAqdNi.gxM4rqDoeGECugjYJgPhZZe/PpXbRlXYI39lZuSO', 'AnneliK');
+
+insert into user_roles(USER_ID, ROLE_ID) VALUES ('1', '1');
+insert into user_roles(USER_ID, ROLE_ID) VALUES ('1', '2');
+
+insert into wire_entity (id, diameter, weight, en_standard_roll, fin_standard_roll, en_length_per_degree, fin_length_per_degree) values (1, 5, 245.55, 13, 14, 1, 2);
+
+insert into price_entity (id, name, price, show_price) values (14,'steel', 56.6, true);

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wires</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <script src="js/wire.js"></script>
+    <script src="js/requests.js"></script>
+
+    <!-- Menu on the left side of the screen -->
+    <div class="container" id="menu">
+        <a href="index.html"> <button><i class="fa fa-home"></i> Stirrups</button> </a>
+        <button id="settings"><i class="fa fa-home"></i></button>
+    </div>
+
+    <div class="container table-responsive" id="content">
+        <button class="button" onclick="wireAdd()">Add</button>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th id="id">ID</th>
+                    <th id="diameter">Diameter</th>
+                    <th id="weight">Weight</th>
+                    <th id="en_standard_roll">EN standard roll</th>
+                    <th id="fin_standard_roll">FIN standard roll</th>
+                    <th id="en_length_per_degree">EN length per degree</th>
+                    <th id="fin_length_per_degree">FIN length per degree</th>
+                </tr>
+            </thead>
+            <tbody id="wireTable"></tbody>
+        </table>
+    </div>
+
+    <!-- The Options Modal -->
+    <div class="modal" id="wireModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Change wire</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <button id="updateWireOption" type="button" class="btn btn-info btn-block" data-dismiss="modal">Update</button>
+                    <button id="addWireOption" type="button" class="btn btn-success btn-block" data-dismiss="modal">Add</button>
+                    <button id="deleteWireOption" type="button" class="btn btn-danger btn-block" data-dismiss="modal">Delete</button>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Update Modal -->
+    <div class="modal" id="wireUpdateModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Update wire</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="updateTable"></table>
+                    <p class="font-weight-bold">Choose attribute you want to change</p>
+                    <select id="attributes">
+                        <option>diameter</option>
+                        <option>weight</option>
+                        <option>en_standard_roll</option>
+                        <option>fin_standard_roll</option>
+                        <option>en_length_per_degree</option>
+                        <option>fin_length_per_degree</option>
+                    </select>
+                    <input type="number" id="newValue" required placeholder="New value">
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal">Close</button>
+                    <button type="button" class="button" data-dismiss="modal" onclick="update()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Add Modal -->
+    <div class="modal" id="wireAddModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add new wire</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="addTable">
+                        <tr>
+                            <td>Diameter</td>
+                            <td>
+                                <input type="number" id="addDiameter" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Weight</td>
+                            <td>
+                                <input type="number" id="addWeight" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EN standard roll</td>
+                            <td>
+                                <input type="number" id="addEnStandardRoll" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FIN standard roll</td>
+                            <td>
+                                <input type="number" id="addFinStandardRoll" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EN length per degree</td>
+                            <td>
+                                <input type="number" id="addEnLengthPerDegree" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>FIN length per degree</td>
+                            <td>
+                                <input type="number" id="addFinLengthPerDegree" required>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal">Close</button>
+                    <button type="button" class="button" id="addWireButton">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Delete Modal -->
+    <div class="modal" id="wireDeleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title text-danger">Are You sure You want to delete this wire?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="deleteTable">
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal" id="deleteWireButton">Yes</button>
+                    <button type="button" class="button" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

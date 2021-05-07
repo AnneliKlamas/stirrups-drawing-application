@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stirrup</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Fabric -->
+    <script src="fabric.js"></script>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+    <script src="js/addTextFields.js"></script>
+    <script src="js/onIndexLoad.js"></script>
+    <script src="js/chosenShape.js"></script>
+    <script src="js/drawShape.js"></script>
+    <script src="js/calculations.js"></script>
+    <script src="js/requests.js"></script>
+
+    <!-- Button trigger modal -->
+    <button id="priceInquiryBtn" type="button" class="button float-right" data-toggle="modal" data-target="#modalItemList">
+        ||| 0
+    </button>
+
+    <!-- The Modal with information form -->
+    <div class="modal" id="inquiryFormModal">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h6 class="modal-title">Send price inquiry</h6>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" id="sendingForm">
+                    <form>
+                        <div class="form-group">
+                            <label for="senderEmail">Email address</label>
+                            <input type="email" class="form-control" id="senderEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="companyOrPerson" id="company"  value="company" required checked>
+                            <label class="form-check-label" for="company">
+                                Company
+                            </label>
+                        </div>
+                        <div id="companyDetails" style="display:none" >
+                            <label>
+                                <input id="companyName" class="form-control" type="name" placeholder="Company name" required>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="companyOrPerson" id="person" value="person" required>
+                            <label class="form-check-label" for="person">
+                                Private
+                            </label>
+                        </div>
+                        <input id="personName" class="form-control" type="name" placeholder="Your name" required>
+                        <input id="personPhone" class="form-control" type="tel" placeholder="Phone number" required>
+                        <div class="form-group">
+                            <label for="messageInput">Message</label>
+                            <textarea class="form-control" id="messageInput" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" onclick="sendEmail()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal with items in price inquiry -->
+    <div class="modal fade" id="modalItemList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Items in price inquiry</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="priceInquiryItems">
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="openForm()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal with circle information -->
+    <div class="modal fade" id="modalCircle" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Arc</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Arc angle
+                    <input type="radio" id="arcAngleRadio" name="angleOrLength" value="angle" checked>
+                    <label>
+                        <input type="number" id="arcAngle" placeholder="Insert arc angle (°)">
+                    </label>
+                    <p>Or</p>
+                    Arc length
+                    <input type="radio" id="arcLengthRadio" name="angleOrLength" value="length">
+                    <label>
+                        <input type="number" id="arcLineLength" placeholder="Insert arc length (mm)">
+                    </label>
+                    <br>
+                    <br>
+                    Arc radius
+                    <input type="number" id="circleRadius" placeholder="Insert arc radius (mm)">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="saveArc" type="button" class="btn btn-primary" >Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu on the left side of the screen -->
+    <div class="container" id="menu">
+        <button><i></i> Stirrups</button>
+        <a href="login.html"><button id="settings">Settings</i></button></a>
+    </div>
+
+    <div class="container" id="content">
+        <div class="row" id="specification">
+
+            <!-- Section for specifying all the information needed to draw stirrup -->
+            <div class="col-lg-5 align-middle">
+                <p>Choose wire diameter</p>
+                <div class="dropdown">
+                    <select id="diameters" onchange="refresh()"></select>
+                </div>
+                <p>Choose standard</p>
+
+                <div id="standard-toggle" class="inline">
+                    <p>EN</p>
+                    <label class="switch">
+                        <input id="standardCheckbox" type="checkbox" onclick=refresh()>
+                        <span class="sliderStandard round"></span>
+                    </label>
+                    <p>FIN</p>
+                </div>
+
+                <!-- Button to Open the Modal -->
+                <button type="button" class="button" data-toggle="modal" data-target="#myModal">
+                    Start drawing
+                </button>
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h6 class="modal-title">Choose standard or non-standard stirrup</h6>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body" id="shapesMenu">
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="button" name="shapeRadio" id="btnRadioCustom" value="custom" autocomplete="off"  checked>
+                                        <img src="images/custom.png" alt="Non-standard">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioA" value="A" autocomplete="off">
+                                        <img src="images/A.png" alt="A">
+                                    </label>
+
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioB" value="B" autocomplete="off">
+                                        <img src="images/B.png" alt="B">
+                                    </label>
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioC" value="C" autocomplete="off">
+                                        <img src="images/C.png" alt="C">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn" name="shapeRadio" id="btnRadioD" value="D" autocomplete="off">
+                                        <img src="images/D.png" alt="D">
+                                    </label>
+
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioE" value="E" autocomplete="off">
+                                        <img src="images/E.png" alt="E">
+                                    </label>
+
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioG" value="G" autocomplete="off">
+                                        <img src="images/G.png" alt="G">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioH" value="H" autocomplete="off">
+                                        <img src="images/H.png" alt="H">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioJ" value="J" autocomplete="off">
+                                        <img src="images/J.png" alt="J">
+                                    </label>
+
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioK" value="K" autocomplete="off">
+                                        <img src="images/K.png" alt="K">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioN" value="N" autocomplete="off">
+                                        <img src="images/N.png" alt="N">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioR" value="R" autocomplete="off">
+                                        <img src="images/R.png" alt="R">
+                                    </label>
+
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioU" value="U" autocomplete="off">
+                                        <img src="images/U.png" alt="U">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioW" value="W" autocomplete="off">
+                                        <img src="images/W.png" alt="W">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioX" value="X" autocomplete="off">
+                                        <img src="images/X.png" alt="X">
+                                    </label>
+
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXA" value="XA" autocomplete="off">
+                                        <img src="images/XA.png" alt="XA">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXB" value="XB" autocomplete="off">
+                                        <img src="images/XB.png" alt="XB">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXC" value="XC" autocomplete="off">
+                                        <img src="images/XC.png" alt="XC">
+                                    </label>
+
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXD" value="XD" autocomplete="off">
+                                        <img src="images/XD.png" alt="XD">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXE" value="XE" autocomplete="off">
+                                        <img src="images/XE.png" alt="XE">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXN" value="XN" autocomplete="off">
+                                        <img src="images/XN.png" alt="XN">
+                                    </label>
+
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioXP" value="XP" autocomplete="off">
+                                        <img src="images/XP.png" alt="XP">
+                                    </label>
+                                    <label class="btn btn-outline-primary">
+                                        <input type="radio" class="btn-check" name="shapeRadio" id="btnRadioZ" value="Z" autocomplete="off">
+                                        <img src="images/Z.png" alt="Z">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="button" data-dismiss="modal" onclick="chosenShape()">Choose</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="allParameters"></div>
+            </div>
+
+            <!-- Section for displaying drawings and calculations -->
+            <div class="col-lg-6 align-middle" id="drawAndCalculate">
+                <div id="draw">
+                    <canvas id="myCanvas" width="600" height="300">
+                    </canvas>
+                </div>
+                <div id="calculate">
+                    <p class="font-weight-bold">Single piece: </p>
+                    <div class="col-lg-12" id="singlePieceCalculations">
+                        <div class="inline">
+                            <p class="inline font-weight-bold">Weight: </p>
+                            <p class="inline" id="singleWeight"></p>
+                        </div>
+                        <div class="inline" id="singlePriceDiv" >
+                            <p class="inline font-weight-bold">Estimated price: </p>
+                            <p class="inline" id="singlePrice"></p>
+                        </div>
+                        <div class="inline">
+                            <p class="inline font-weight-bold">Wire length: </p>
+                            <p class="inline" id="singleWireLength"></p>
+                        </div>
+                        <div class="inline">
+                            <p class="inline font-weight-bold">Bending mandrel: </p>
+                            <p class="inline" id="bendingMandrel"></p>
+                        </div>
+                    </div>
+
+                    <p class="font-weight-bold">All: </p>
+                    <div class="col-lg-12" id="allPieceCalculations">
+                        <div class="inline">
+                            <p class="inline font-weight-bold">Weight: </p>
+                            <p class="inline" id="allWeight"></p>
+                        </div>
+                        <div class="inline" id="allPriceDiv">
+                            <p class="inline font-weight-bold">Estimated price: </p>
+                            <p class="inline" id="allPrice"></p>
+                        </div>
+                        <div class="inline">
+                            <p class="inline font-weight-bold">Wire length: </p>
+                            <p class="inline" id="allWireLength"></p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addToPriceInquiry()">Add to price inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

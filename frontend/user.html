@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <script src="js/user.js"></script>
+    <script src="js/requests.js"></script>
+
+    <!-- Menu on the left side of the screen -->
+    <div class="container" id="menu">
+        <a href="index.html"> <button><i class="fa fa-home"></i> Stirrups</button> </a>
+        <button id="settings"><i class="fa fa-home"></i></button>
+    </div>
+
+    <div class="container table-responsive" id="content">
+        <button class="button" data-toggle="modal" data-target="#userAddModal">Add</button>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th id="id">ID</th>
+                    <th id="username">Username</th>
+                    <th id="name">Name</th>
+                    <th id="roles">Role(s)</th>
+                </tr>
+            </thead>
+            <tbody id="userTable"></tbody>
+        </table>
+    </div>
+
+    <!-- The Add Modal -->
+    <div class="modal" id="userAddModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add new user</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="addTable">
+                        <tr>
+                            <td>Username</td>
+                            <td>
+                                <input type="text" maxlength="20" minlength="1" id="addUsername" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Full name</td>
+                            <td>
+                                <input type="text" maxlength="50" id="addFullName" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>
+                                <input type="password" minlength="6" id="password" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Confirm password</td>
+                            <td>
+                                <input type="password" id="passwordConfirm" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Roles</td>
+                            <td>
+                                <input type="checkbox" id="mod" name="Moderator" value="mod">
+                                <label for="mod">Moderator</label><br>
+                                <input type="checkbox" id="admin" name="Admin" value="admin">
+                                <label for="Admin">Admin</label><br>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal">Close</button>
+                    <button type="button" class="button" id="addUserButton" onclick="addUser()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Delete Modal -->
+    <div class="modal" id="userDeleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title text-danger">Are You sure You want to delete this user?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <table id="deleteUserTable">
+                    </table>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal" id="deleteUserButton">Yes</button>
+                    <button type="button" class="button" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Options Modal -->
+    <div class="modal" id="usersModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Change user</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <button id="addUserOption" type="button" class="btn btn-success btn-block" data-dismiss="modal">Add</button>
+                    <button id="deleteUserOption" type="button" class="btn btn-danger btn-block" data-dismiss="modal">Delete</button>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="button" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

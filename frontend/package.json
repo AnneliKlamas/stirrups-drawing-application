@@ -1,0 +1,19 @@
+{
+  "name": "thesis_prototype1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/onIndexLoad.js",
+  "devDependencies": {
+    "web-app-start": "*"
+  },
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "fabric": "^4.3.1",
+    "icon-select": "^1.2.1",
+    "jquery": "^3.6.0"
+  }
+}
